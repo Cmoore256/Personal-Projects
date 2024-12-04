@@ -1,0 +1,474 @@
+TASK #1. DEFINE A PANDAS SERIES
+# Pandas is a data manipulation and analysis tool that is built on Numpy.
+# Pandas uses a data structure known as DataFrame (think of it as Microsoft excel in Python). 
+# DataFrames empower programmers to store and manipulate data in a tabular fashion (rows and columns).
+# Series Vs. DataFrame? Series is considered a single column of a DataFrame.
+​
+import pandas as pd
+​
+# Let's define a Python list that contains 5 crypto currencies 
+crypto_list = ['BTC', 'XRP', 'LTC', 'ADA', 'ETH']
+crypto_list
+['BTC', 'XRP', 'LTC', 'ADA', 'ETH']
+# Let's confirm the Datatype
+type(crypto_list)
+list
+# Let's create a one dimensional Pandas "series" 
+# Let's use Pandas Constructor Method to create a series from a Python list
+# Note that series is formed of data and associated index (numeric index has been automatically generated) 
+# Check Pandas Documentation for More information: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.html#pandas.Series
+# Object datatype is used for text data (String)
+crypto_series = pd.Series(data = crypto_list)
+crypto_series
+0    BTC
+1    XRP
+2    LTC
+3    ADA
+4    ETH
+dtype: object
+# Let's confirm the Pandas Series Datatype
+type(crypto_series)
+pandas.core.series.Series
+# Let's define another Pandas Series that contains numeric values (crypto prices) instead of text data
+# Note that we have int64 datatype which means it's integer stored in 64 bits in memory
+crypto_prices_series = pd.Series(data = [2000, 500, 2000, 20 , 50])
+crypto_prices_series
+0    2000
+1     500
+2    2000
+3      20
+4      50
+dtype: int64
+MINI CHALLENGE #1:
+
+Define a Pandas Series named "my_series" that contains your top 3 favourite stocks. Confirm the datatype of "my_series"
+my_series = pd.Series(data = ['BTC', 'ETH', 'ADA'])
+my_series
+0    BTC
+1    ETH
+2    ADA
+dtype: object
+type(my_series)
+pandas.core.series.Series
+TASK #2. DEFINE A PANDAS SERIES WITH CUSTOM INDEX
+# Let's define a Python list that contains 5 Crypto currencies
+crypto_list = ['BTC', 'XRP', 'LTC', 'ADA', 'ETH']
+crypto_list
+['BTC', 'XRP', 'LTC', 'ADA', 'ETH']
+# Let's define a python list as shown below. This python list will be used for the Series index:
+crypto_labels  = ['crypto#1', 'crypto#2', 'crypto#3', 'crypto#4', 'crypto#5']
+crypto_labels
+['crypto#1', 'crypto#2', 'crypto#3', 'crypto#4', 'crypto#5']
+# Let's create a one dimensional Pandas "series" 
+# Let's use Pandas Constructor Method to create a series from a Python list
+# Note that this series is formed of data and associated labels 
+crypto_series = pd.Series(data = crypto_list, index = crypto_labels)
+# Let's view the series
+​
+crypto#1    BTC
+crypto#2    XRP
+crypto#3    LTC
+crypto#4    ADA
+crypto#5    ETH
+dtype: object
+# Let's obtain the datatype
+type(crypto_series)
+pandas.core.series.Series
+MINI CHALLENGE #2:
+
+Define a Pandas Series named "my_series" that contains your top 3 favourite stocks. Instead of using default numeric indexes (similar to mini challenge #1), use the following indexes "stock #1", "stock #2", and "stock #3"
+my_stocks = ['Gamestop', 'Facebook', 'Google']
+my_stock_labels = ['stock#1', 'stock#2', 'stock#3']
+my_stock_series = pd.Series(data = my_stocks, index = my_stock_labels)
+my_stock_series
+stock#1    Gamestop
+stock#2    Facebook
+stock#3      Google
+dtype: object
+​
+TASK #3. DEFINE A PANDAS SERIES FROM A DICTIONARY
+# A Dictionary consists of a collection of key-value pairs. Each key-value pair maps the key to its corresponding value.
+# Keys are unique within a dictionary while values may not be. 
+# List elements are accessed by their position in the list, via indexing while Dictionary elements are accessed via keys
+# Define a dictionary named "my_dict" using key-value pairs
+my_dict = {'Employee ID': 1, 'Employee Name': 'Steve', 'Salary [$]': 2000, 'Years with company': 10}
+# Show the dictionary
+my_dict
+{'Employee ID': 1,
+ 'Employee Name': 'Steve',
+ 'Salary [$]': 2000,
+ 'Years with company': 10}
+# Confirm the dictionary datatype 
+type(my_dict)
+dict
+# Let's define a Pandas Series Using the dictionary
+employee_series = pd.Series(my_dict)
+employee_series
+Employee ID               1
+Employee Name         Steve
+Salary [$]             2000
+Years with company       10
+dtype: object
+MINI CHALLENGE #3:
+
+Create a Pandas Series from a dictionary with 3 of your favourite stocks and their corresponding prices
+stock_dict = {'Gamestop': 2500, 'Facebook': 5000, 'Google': 10000}
+stock_dict_series = pd.Series(stock_dict)
+stock_dict_series
+Gamestop     2500
+Facebook     5000
+Google      10000
+dtype: int64
+TASK #4. PANDAS ATTRIBUTES
+# Attributes/Properties: do not use parantheses "()" and are used to get Pandas Series Properties. Ex: my_series.values, my_series.shape
+# Methods: use parantheses "()" and might include arguments and they actually alter/change the Pandas Series. Ex: my_series.tail(), my_series.head(), my_series.drop_duplicates()
+# Indexers: use square brackets "[]" and are used to access specific elements in a Pandas Series or DataFrame. Ex: my_series.loc[], my_series.iloc[]
+​
+# Let's redefine a Pandas Series containing our favourite 5 cryptos 
+crypto_list = ['BTC', 'XRP', 'LTC', 'ADA', 'ETH']
+crypto_series = pd.Series(data = crypto_list)
+crypto_series
+0    BTC
+1    XRP
+2    LTC
+3    ADA
+4    ETH
+dtype: object
+# ".Values" attribute is used to return Series as ndarray depending on its dtype
+# Check this for more information: https://pandas.pydata.org/docs/reference/api/pandas.Series.values.html#pandas.Series.values
+crypto_series.values
+array(['BTC', 'XRP', 'LTC', 'ADA', 'ETH'], dtype=object)
+# index is used to return the index (axis labels) of the Series
+crypto_series.index
+RangeIndex(start=0, stop=5, step=1)
+# dtype is used to return the datatype of the Series ('O' stands for 'object' datatype)
+crypto_series.dtype
+dtype('O')
+# Check if all elements are unique or not
+crypto_series.is_unique
+True
+# Check the shape of the Series
+# note that a Series is one dimensional
+crypto_series.shape
+(5,)
+MINI CHALLENGE #4:
+
+What is the size of the Pandas Series? (External Research for the proper attribute is Required)
+crypto_series.size
+5
+TASK #5. PANDAS METHODS
+# Methods have parentheses and they actually alter/change the Pandas Series
+# Methods: use parantheses "()" and might include arguments. Ex: my_series.tail(), my_series.head(), my_series.drop_duplicates()
+​
+# Let's define another Pandas Series that contains numeric values (crypto prices) instead of text data
+# Note that we have int64 datatype which means it contains integer values stored in 64 bits in memory
+crypto_prices = pd.Series(data = [400, 500, 1500 , 20 , 70])
+crypto_prices
+0     400
+1     500
+2    1500
+3      20
+4      70
+dtype: int64
+# Let's obtain the sum of all elements in the Pandas Series
+crypto_prices.sum()
+2490
+# Let's obtain the multiplication of all elements in the Pandas Series
+crypto_prices.product()
+420000000000
+# Let's obtain the average
+crypto_prices.mean()
+498.0
+# Let's show the first couple of elements in the Pandas Series
+crypto_prices.head(2)
+0    400
+1    500
+dtype: int64
+# Note that head creates a new dataframe 
+new_crypto_prices = crypto_prices.head(3)
+new_crypto_prices
+0     400
+1     500
+2    1500
+dtype: int64
+MINI CHALLENGE #5:
+
+Show the last 2 rows in the Pandas Series (External Research is Required)
+How many bytes does this Pandas Series consume in memory? (External Research is Required)
+crypto_prices.tail(2)
+3    20
+4    70
+dtype: int64
+crypto_prices.memory_usage()
+168
+TASK #6. IMPORT CSV DATA (1-D) USING PANDAS
+# Pandas read_csv is used to read a csv file and store data in a DataFrame by default (DataFrames will be covered shortly!)
+# Use Squeeze to convert it into a Pandas Series (One-dimensional)
+# Notice that no foramtting exists when a Series is plotted
+BTC_price_series = pd.read_csv('crypto.csv', squeeze = True)
+BTC_price_series
+0         457.334015
+1         424.440002
+2         394.795990
+3         408.903992
+4         398.821014
+            ...     
+2380    55950.746090
+2381    57750.199220
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+Name: BTC-USD Price, Length: 2385, dtype: float64
+type(BTC_price_series)
+pandas.core.series.Series
+MINI CHALLENGE #6:
+
+Set Squeeze = False and rerun the cell, what do you notice? Use Type to compare both outputs
+BTC_price_series = pd.read_csv('crypto.csv', squeeze = False)
+BTC_price_series
+BTC-USD Price
+0	457.334015
+1	424.440002
+2	394.795990
+3	408.903992
+4	398.821014
+...	...
+2380	55950.746090
+2381	57750.199220
+2382	58917.691410
+2383	58918.832030
+2384	59095.808590
+2385 rows × 1 columns
+
+type(BTC_price_series)
+pandas.core.frame.DataFrame
+TASK #7. PANDAS BUILT-IN FUNCTIONS
+# Pandas works great with pre-existing python functions 
+# You don't have to play with pandas methods and directly leverage Python functions
+# Check Python built-in functions here: https://docs.python.org/3/library/functions.html
+BTC_price_series = pd.read_csv('crypto.csv', squeeze = True)
+BTC_price_series
+0         457.334015
+1         424.440002
+2         394.795990
+3         408.903992
+4         398.821014
+            ...     
+2380    55950.746090
+2381    57750.199220
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+Name: BTC-USD Price, Length: 2385, dtype: float64
+# Obtain the Data Type of the Pandas Series
+type(BTC_price_series)
+pandas.core.series.Series
+# Obtain the length of the Pandas Series
+len(BTC_price_series)
+2385
+# Obtain the maximum value of the Pandas Series
+max(BTC_price_series)
+61243.08594
+# Obtain the minimum value of the Pandas Series
+min(BTC_price_series)
+178.1029968
+MINI CHALLENGE #7:
+
+Given the following Pandas Series, convert all positive values to negative using python built-in functions
+Obtain only unique values (ie: Remove duplicates) using python built-in functions
+my_series = pd.Series(data = [-10, 100, -30, 50, 100])
+my_series = pd.Series(data = [-10, 100, -30, 50, 100])
+abs(my_series)
+0     10
+1    100
+2     30
+3     50
+4    100
+dtype: int64
+set(my_series)
+{-30, -10, 50, 100}
+TASK #8. SORTING PANDAS SERIES
+# Let's import CSV data as follows:
+BTC_price_series = pd.read_csv('crypto.csv', squeeze = True)
+BTC_price_series
+0         457.334015
+1         424.440002
+2         394.795990
+3         408.903992
+4         398.821014
+            ...     
+2380    55950.746090
+2381    57750.199220
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+Name: BTC-USD Price, Length: 2385, dtype: float64
+# You can sort the values in the dataframe as follows
+BTC_price_series.sort_values()
+119       178.102997
+122       199.259995
+121       208.097000
+120       209.843994
+123       210.339004
+            ...     
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+2366    59302.316410
+2365    61243.085940
+Name: BTC-USD Price, Length: 2385, dtype: float64
+# Let's view Pandas Series again after sorting, Note that nothing changed in memory! you have to make sure that inplace is set to True
+BTC_price_series
+0         457.334015
+1         424.440002
+2         394.795990
+3         408.903992
+4         398.821014
+            ...     
+2380    55950.746090
+2381    57750.199220
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+Name: BTC-USD Price, Length: 2385, dtype: float64
+# Set inplace = True to ensure that change has taken place in memory 
+BTC_price_series.sort_values(inplace = True)
+# Note that now the change (ordering) took place 
+BTC_price_series
+119       178.102997
+122       199.259995
+121       208.097000
+120       209.843994
+123       210.339004
+            ...     
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+2366    59302.316410
+2365    61243.085940
+Name: BTC-USD Price, Length: 2385, dtype: float64
+# Notice that the indexes are now changed 
+# You can also sort by index (revert back to the original Pandas Series) as follows: 
+BTC_price_series.sort_index(inplace = True)
+BTC_price_series
+0         457.334015
+1         424.440002
+2         394.795990
+3         408.903992
+4         398.821014
+            ...     
+2380    55950.746090
+2381    57750.199220
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+Name: BTC-USD Price, Length: 2385, dtype: float64
+MINI CHALLENGE #8:
+
+Sort the BTC_price_series values in a decending order instead. Make sure to update values in-memory.
+BTC_price_series.sort_index(ascending = False, inplace = True)
+BTC_price_series
+2384    59095.808590
+2383    58918.832030
+2382    58917.691410
+2381    57750.199220
+2380    55950.746090
+            ...     
+4         398.821014
+3         408.903992
+2         394.795990
+1         424.440002
+0         457.334015
+Name: BTC-USD Price, Length: 2385, dtype: float64
+TASK #9. PERFORM MATH OPERATIONS ON PANDAS SERIES
+# Let's import CSV data as follows:
+BTC_price_series = pd.read_csv('crypto.csv', squeeze = True)
+BTC_price_series
+0         457.334015
+1         424.440002
+2         394.795990
+3         408.903992
+4         398.821014
+            ...     
+2380    55950.746090
+2381    57750.199220
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+Name: BTC-USD Price, Length: 2385, dtype: float64
+# Apply Sum Method on Pandas Series
+BTC_price_series.sum()
+15435379.738852698
+# Apply count Method on Pandas Series
+BTC_price_series.count()
+2385
+# Obtain the maximum value
+BTC_price_series.max()
+61243.08594
+# Obtain the minimum value
+BTC_price_series.min()
+178.1029968
+# My favourite: Describe! 
+# Describe is used to obtain all statistical information in one place 
+BTC_price_series.describe()
+count     2385.000000
+mean      6471.857333
+std       9289.022505
+min        178.102997
+25%        454.618988
+50%       4076.632568
+75%       8864.766602
+max      61243.085940
+Name: BTC-USD Price, dtype: float64
+MINI CHALLENGE #9:
+
+Obtain the average price of the BTC_price_series using two different methods
+BTC_price_series.describe()
+count     2385.000000
+mean      6471.857333
+std       9289.022505
+min        178.102997
+25%        454.618988
+50%       4076.632568
+75%       8864.766602
+max      61243.085940
+Name: BTC-USD Price, dtype: float64
+BTC_price_series.mean()
+6471.857332852284
+BTC_price_series.sum()/BTC_price_series.count()
+6471.857332852284
+TASK #10. CHECK IF A GIVEN ELEMENT EXISTS IN A PANDAS SERIES
+# Let's import CSV data as follows:
+BTC_price_series = pd.read_csv('crypto.csv', squeeze = True)
+BTC_price_series
+0         457.334015
+1         424.440002
+2         394.795990
+3         408.903992
+4         398.821014
+            ...     
+2380    55950.746090
+2381    57750.199220
+2382    58917.691410
+2383    58918.832030
+2384    59095.808590
+Name: BTC-USD Price, Length: 2385, dtype: float64
+# Check if a given number exists in a Pandas Series values
+# Returns a boolean "True" or "False"
+1295.5 in BTC_price_series.values
+False
+# Check if a given number exists in a Pandas Series index
+1295 in BTC_price_series.index
+True
+# Note that by default 'in' will search in Pandas index and not values
+1295 in BTC_price_series
+True
+MINI CHALLENGE #10:
+
+Check if the stock price 399 exists in the BTC_price_series Pandas Series or not
+Round stock prices to the nearest integer and check again
+399 in BTC_price_series.values
+False
+Rounded_prices_series = round(BTC_price_series)
+399 in BTC_price_series
+True
